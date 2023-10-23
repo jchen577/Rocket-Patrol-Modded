@@ -8,6 +8,7 @@ class Play extends Phaser.Scene{
         this.load.image('rocket','./assets/rocket.png');
         this.load.image('spaceship','./assets/spaceship.png');
         this.load.image('starfield','./assets/starfield.png');
+        this.load.image('spaceship2','./assets/spaceship2.png');
         this.load.spritesheet(`explosion`,'./assets/explosion.png',{frameWidth: 64, frameHeight: 32, startFram: 0, endFrame: 9});
     
 
@@ -29,6 +30,8 @@ class Play extends Phaser.Scene{
         this.ship01 = new Spaceship(this, game.config.width + borderUISize*6, borderUISize*4, 'spaceship', 0, 30,5).setOrigin(0, 0);
         this.ship02 = new Spaceship(this, game.config.width + borderUISize*3, borderUISize*5 + borderPadding*2, 'spaceship', 0, 20,4).setOrigin(0,0);
         this.ship03 = new Spaceship(this, game.config.width, borderUISize*6 + borderPadding*4, 'spaceship', 0, 10,3).setOrigin(0,0);
+        this.ship04 = new SpaceshipS(this, game.config.width + borderUISize*6, borderUISize*6 + borderPadding*4+50, 'spaceship2', 0, 50,10).setOrigin(0, 0);
+        //New and smaller spaceship, significantly faster
 
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
@@ -105,6 +108,7 @@ class Play extends Phaser.Scene{
             this.ship01.update();
             this.ship02.update();
             this.ship03.update();
+            this.ship04.update()
         }
 
         if(this.checkCollision(this.p1Rocket,this.ship03)){
@@ -118,6 +122,10 @@ class Play extends Phaser.Scene{
         if(this.checkCollision(this.p1Rocket,this.ship01)){
             this.p1Rocket.reset();
             this.shipExplode(this.ship01);
+        }
+        if(this.checkCollision(this.p1Rocket,this.ship04)){//New spaceship collision
+            this.p1Rocket.reset();
+            this.shipExplode(this.ship04);
         }
     }
 
