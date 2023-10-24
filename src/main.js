@@ -8,6 +8,7 @@ Mods: Countdown timer(3 points)
       High score tracking(1 point)
       New title screen(3 points)
       4 new explosion sound effects(3 points)
+      Speed increase after 30 seconds(1 point)
 Credits: https://phaser.discourse.group/t/countdown-timer/2471/4 (Help for the countdown timer)
 */
 let highS = 0;
