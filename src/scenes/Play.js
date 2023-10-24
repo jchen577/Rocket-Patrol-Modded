@@ -29,7 +29,7 @@ class Play extends Phaser.Scene{
         this.ship01 = new Spaceship(this, game.config.width + borderUISize*6, borderUISize*4, 'spaceship', 0, 30,5).setOrigin(0, 0);
         this.ship02 = new Spaceship(this, game.config.width + borderUISize*3, borderUISize*5 + borderPadding*2, 'spaceship', 0, 20,4).setOrigin(0,0);
         this.ship03 = new Spaceship(this, game.config.width, borderUISize*6 + borderPadding*4, 'spaceship', 0, 10,3).setOrigin(0,0);
-        this.ship04 = new SpaceshipS(this, game.config.width + borderUISize*6, borderUISize*6 + borderPadding*4+50, 'spaceship2', 0, 50,10).setOrigin(0, 0);
+        this.ship04 = new SpaceshipS(this, game.config.width -50, borderUISize*6 + borderPadding*4+50, 'spaceship2', 0, 50,5).setOrigin(0, 0);
         //New and smaller spaceship, significantly faster
 
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
@@ -90,6 +90,13 @@ class Play extends Phaser.Scene{
         },null,this);*/
         this.timedEvent = this.time.addEvent({ delay: 1000, callback: this.onEvent, callbackScope: this, loop: true });
         //Add a looped event which plays every second to call to onEvent
+        this.clock = this.time.delayedCall(30000,()=>{//Make the spaceships speed up after 30 seconds
+                this.ship01.moveSpeed = this.ship01.moveSpeed *1.5;
+                this.ship02.moveSpeed = this.ship02.moveSpeed *1.5;
+                this.ship03.moveSpeed = this.ship03.moveSpeed *1.5;
+                this.ship04.moveSpeed = this.ship04.moveSpeed *1.5;
+
+        },null,this);
     }
     
     update(){
@@ -151,12 +158,15 @@ class Play extends Phaser.Scene{
         this.p1Score += ship.points;
         this.initTime += ship.times;//Add time to timer
         this.scoreLeft.text = this.p1Score;
-        this.soundN = Math.round(Math.random()*3);//Determine which sound to play
+        this.soundN = Math.round(Math.random()*4);//Determine which sound to play
         if(this.soundN ==1){//If the number is 1 2 or 3 play a sound
             this.sound.play('sfx_explosion1');
         }
         else if(this.soundN == 2){
             this.sound.play('sfx_explosion2');
+        }
+        else if(this.soundN ==3){
+            this.sound.play('sfx_explosion4')
         }
         else{
             this.sound.play('sfx_explosion3');
