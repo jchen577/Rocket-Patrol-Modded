@@ -10,7 +10,6 @@ class Play extends Phaser.Scene{
         this.load.image('starfield','./assets/starfield.png');
         this.load.image('spaceship2','./assets/spaceship2.png');
         this.load.spritesheet(`explosion`,'./assets/explosion.png',{frameWidth: 64, frameHeight: 32, startFram: 0, endFrame: 9});
-    
 
     }
 
@@ -152,7 +151,16 @@ class Play extends Phaser.Scene{
         this.p1Score += ship.points;
         this.initTime += ship.times;//Add time to timer
         this.scoreLeft.text = this.p1Score;
-        this.sound.play('sfx_explosion');
+        this.soundN = Math.round(Math.random()*3);//Determine which sound to play
+        if(this.soundN ==1){//If the number is 1 2 or 3 play a sound
+            this.sound.play('sfx_explosion1');
+        }
+        else if(this.soundN == 2){
+            this.sound.play('sfx_explosion2');
+        }
+        else{
+            this.sound.play('sfx_explosion3');
+        }
         
     }
 
